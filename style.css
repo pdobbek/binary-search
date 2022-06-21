@@ -16,7 +16,7 @@
     background-color: lightseagreen;
     position: absolute;
     bottom: 30px;
-    transition: 0.3s all ease;
+    transition: 1s all ease;
   }
    
   .block_val {

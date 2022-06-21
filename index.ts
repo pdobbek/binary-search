@@ -1,5 +1,4 @@
 const NUM_OF_BLOCKS = 30;
-
 var arrContainer: HTMLElement | null = document.getElementById("array");
 
 /**
@@ -56,6 +55,7 @@ async function binarySearch(): Promise<void> {
     output.innerText = "";
     blocks.forEach(block => {
         block.style.backgroundColor = normalColour;
+        block.style.opacity = "1.0";
     });
 
     let low: number = 0;
@@ -67,20 +67,25 @@ async function binarySearch(): Promise<void> {
         blocks[mid].style.backgroundColor = midColour;
         let midValue: number = Number(blocks[mid].getElementsByClassName("block_val")[0].innerHTML);
         console.log("midValue = " + midValue);
-
-        // To wait for .4 sec
-        await new Promise<void>((resolve) =>
-            setTimeout(() => {
-            resolve();
-            }, 400)
-        );
+        // To wait for 1 sec
+        await delay(1000);
 
         if (midValue < x) {
             low = mid + 1;
+            // fade away discarded blocks
+            for (let i = low - 1; i >= 0; i--) {
+                blocks[i].style.opacity = ".3";
+            }
             blocks[mid].style.backgroundColor =  normalColour;
+            await delay(1000);
+
         } else if (midValue > x) {
             high = mid - 1;
+            for (let i = high + 1; i < NUM_OF_BLOCKS; i++) {
+                blocks[i].style.opacity = ".3";
+            }
             blocks[mid].style.backgroundColor = normalColour;
+            await delay(1000);
         } else {
             blocks[mid].style.backgroundColor = xColour;
             output.innerText = "Search done.";
@@ -89,6 +94,14 @@ async function binarySearch(): Promise<void> {
         }
     }
     if (!isFound) output.innerText = "Number not in the array. Please try a different number.";
+}
+
+/**
+ * Utility function for simplifying delay calls
+ * @param ms number of ms to delay by
+ */
+function delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
 }
 
 generateArray();

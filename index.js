@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 const NUM_OF_BLOCKS = 30;
 var arrContainer = document.getElementById("array");
 /**
- * Function that draws an array of blocks of random heights.
+ * Draws an array of blocks of random heights.
  */
 function generateArray() {
     if (arrContainer != null) {
@@ -39,6 +39,10 @@ function generateArray() {
         }
     }
 }
+/**
+ * Asynchronous binary search function.
+ * Highlights the middle block as it searches.
+ */
 function binarySearch() {
     return __awaiter(this, void 0, void 0, function* () {
         // block colours
@@ -52,6 +56,7 @@ function binarySearch() {
         output.innerText = "";
         blocks.forEach(block => {
             block.style.backgroundColor = normalColour;
+            block.style.opacity = "1.0";
         });
         let low = 0;
         let high = NUM_OF_BLOCKS - 1;
@@ -62,17 +67,26 @@ function binarySearch() {
             blocks[mid].style.backgroundColor = midColour;
             let midValue = Number(blocks[mid].getElementsByClassName("block_val")[0].innerHTML);
             console.log("midValue = " + midValue);
-            // To wait for .15 sec
+            // To wait for 1 sec
             yield new Promise((resolve) => setTimeout(() => {
                 resolve();
-            }, 400));
+            }, 1000));
             if (midValue < x) {
                 low = mid + 1;
+                // fade away discarded blocks
+                for (let i = low - 1; i >= 0; i--) {
+                    blocks[i].style.opacity = ".3";
+                }
                 blocks[mid].style.backgroundColor = normalColour;
+                yield delay(1000);
             }
             else if (midValue > x) {
                 high = mid - 1;
+                for (let i = high + 1; i < NUM_OF_BLOCKS; i++) {
+                    blocks[i].style.opacity = ".3";
+                }
                 blocks[mid].style.backgroundColor = normalColour;
+                yield delay(1000);
             }
             else {
                 blocks[mid].style.backgroundColor = xColour;
@@ -84,6 +98,9 @@ function binarySearch() {
         if (!isFound)
             output.innerText = "Number not in the array. Please try a different number.";
     });
+}
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 generateArray();
 console.log("test");
