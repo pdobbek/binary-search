@@ -16,10 +16,10 @@
     background-color: lightseagreen;
     position: absolute;
     bottom: 30px;
-    transition: 0.2s all ease;
+    transition: 0.3s all ease;
   }
    
-  .block_id {
+  .block_val {
     position: absolute;
     color: black;
     margin-top: -18px;
