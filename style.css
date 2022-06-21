@@ -1,0 +1,28 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+  }
+   
+  #array {
+    background-color: lightyellow;
+    height: 400px;
+    margin: auto;
+    position: relative;
+  }
+   
+  .block {
+    width: 28px;
+    background-color: lightseagreen;
+    position: absolute;
+    bottom: 30px;
+    transition: 0.2s all ease;
+  }
+   
+  .block_id {
+    position: absolute;
+    color: black;
+    margin-top: -18px;
+    width: 100%;
+    text-align: center;
+  }
